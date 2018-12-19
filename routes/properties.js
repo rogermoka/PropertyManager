@@ -12,7 +12,14 @@ router.post('/', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  let property = new Property({ name: req.body.name });
+  let property = new Property({
+     name: req.body.name,
+     address: req.body.address,
+     description: req.body.description,
+     size: req.body.size,
+     pricePerSquare: req.body.pricePerSquare,
+     gps: req.body.gps
+    });
   property = await property.save();
   
   res.send(property);
@@ -22,7 +29,14 @@ router.put('/:id', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  const property = await Property.findByIdAndUpdate(req.params.id, { name: req.body.name }, {
+  const property = await Property.findByIdAndUpdate(req.params.id, { 
+    name: req.body.name,
+    address: req.body.address,
+    description: req.body.description,
+    size: req.body.size,
+    pricePerSquare: req.body.pricePerSquare,
+    gps: req.body.gps
+   }, {
     new: true
   });
 
